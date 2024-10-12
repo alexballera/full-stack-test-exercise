@@ -1,34 +1,31 @@
-'use client'
+"use client"
 //** Base Imports */
 import Link from 'next/link'
-import { Suspense, useState } from "react"
+import { Suspense } from "react"
 
 //** Mui Imports */
-import { Google, Visibility, VisibilityOff } from '@mui/icons-material'
+import { Google } from '@mui/icons-material'
 import LoginIcon from '@mui/icons-material/Login'
 import LoadingButton from '@mui/lab/LoadingButton'
-import { CardActions, CardContent, CircularProgress, FormControl, FormHelperText, Grid2, IconButton, InputAdornment, TextField } from "@mui/material"
+import { CardActions, CircularProgress, Grid2 } from "@mui/material"
 
 // ** Third Party Imports
 import { yupResolver } from '@hookform/resolvers/yup'
-import { Controller, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
 //** Store  && Services Imports */
 import AuthLayout from '../auth/layaout/AuthLayout'
-import { LoginIS as defaultValues, Login, loginSchema } from '../auth/model'
+import { Auth, authSchema, userIS as defaultValues } from '../auth/model'
+import FormLogin from './components/formLogin'
 
 const schema = yup.object().shape({
-  ...loginSchema
+  ...authSchema
 })
 
-export const initialState = {
-  loadingGoogle: false,
-  loadingSubmit: false,
-  showPassword: false
-}
 function LoginPage() {
-  const [state, setState] = useState(initialState)
+
+  //** Hooks */
 
   const {
     control,
@@ -40,8 +37,9 @@ function LoginPage() {
     resolver: yupResolver(schema)
   })
 
-  const onSubmit = (body: Login) => {
-    setState({
+  const onSubmit = (body: Auth) => {
+    console.log(body)
+    /* setState({
       ...state,
       loadingSubmit: true
     })
@@ -51,92 +49,14 @@ function LoginPage() {
         loadingSubmit: false
       })
       console.log(body)
-    }, 2000)
+    }, 2000) */
   }
 
   return (
     <Suspense fallback={<CircularProgress disableShrink sx={{ mt: 6 }} />}>
       <AuthLayout title='Login'>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <CardContent>
-            <Grid2 container spacing={2}>
-              <Grid2 size={{ xs: 12 }}>
-                <FormControl fullWidth>
-                  <Controller
-                    name='email'
-                    control={control}
-                    render={({ field: { value, onChange } }) => (
-                      <TextField
-                        value={value}
-                        label='Email'
-                        onChange={onChange}
-                        type='email'
-                        placeholder='correo@correo.com'
-                        aria-describedby='correo-electronico'
-                        disabled={state.loadingGoogle || state.loadingSubmit}
-                        color='secondary'
-                        error={Boolean(errors.email)}
-                        sx={{ color: 'primary.dark' }}
-                      />
-                    )}
-                  />
-                  {errors.email && (
-                    <FormHelperText sx={{ color: 'error.main' }} id='validation-schema-moneda'>
-                      {errors.email.message}
-                    </FormHelperText>
-                  )}
-                </FormControl>
-              </Grid2>
-              <Grid2 size={{ xs: 12 }}>
-                <FormControl fullWidth>
-                  <Controller
-                    name='password'
-                    control={control}
-                    render={({ field: { value, onChange } }) => (
-                      <TextField
-                        value={value}
-                        label='Contraseña'
-                        onChange={onChange}
-                        type={state.showPassword ? 'text' : 'password'}
-                        placeholder='Escriba contraseña'
-                        aria-describedby='password'
-                        disabled={state.loadingGoogle || state.loadingSubmit}
-                        color='secondary'
-                        sx={{ color: 'primary.dark' }}
-                        error={Boolean(errors.password)}
-                        slotProps={{
-                          input: {
-                            endAdornment: (
-                              <InputAdornment position="end">
-                                <IconButton
-                                  aria-label="toggle password visibility"
-                                  onClick={() => setState({
-                                    ...state,
-                                    showPassword: !state.showPassword
-                                  })}
-                                  onMouseDown={() => setState({
-                                    ...state,
-                                    showPassword: !state.showPassword
-                                  })}
-                                >
-                                  {state.showPassword ? <Visibility sx={{ color: 'primary.main' }} /> : <VisibilityOff sx={{ color: 'primary.main' }} />}
-                                </IconButton>
-                              </InputAdornment>
-                            )
-                          }
-                        }}
-                      />
-                    )}
-                  />
-                  {errors.password && (
-                    <FormHelperText sx={{ color: 'error.main' }} id='validation-schema-moneda'>
-                      {errors.password.message}
-                    </FormHelperText>
-                  )}
-                </FormControl>
-              </Grid2>
-            </Grid2>
-          </CardContent>
+          <FormLogin control={control} errors={errors} />
           <CardActions sx={{ p: 2 }}>
             <Grid2
               container
@@ -151,7 +71,7 @@ function LoginPage() {
                   fullWidth
                   size='large'
                   type='submit'
-                  loading={state.loadingGoogle}
+                  loading={false}
                   color={'primary'}
                   variant={'contained'}
                   loadingPosition={'end'}
@@ -165,7 +85,7 @@ function LoginPage() {
                   fullWidth
                   size='large'
                   type='submit'
-                  loading={state.loadingSubmit}
+                  loading={false}
                   color={'primary'}
                   variant={'contained'}
                   loadingPosition={'end'}

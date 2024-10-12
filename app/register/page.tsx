@@ -1,7 +1,7 @@
 'use client'
 //** Base Imports */
 import Link from 'next/link'
-import { Suspense, useState } from "react"
+import { Suspense } from "react"
 
 //** Mui Imports */
 import { Visibility, VisibilityOff } from '@mui/icons-material'
@@ -16,15 +16,15 @@ import * as yup from 'yup'
 
 //** Store  && Services Imports */
 import AuthLayout from '../auth/layaout/AuthLayout'
-import { RegisterIS as defaultValues, loginSchema, Register } from '../auth/model'
-import { initialState } from '../login/page'
+import { authSchema, userIS as defaultValues, User } from '../auth/model'
+import useStates from '../hooks/useStates'
 
 const schema = yup.object().shape({
-  ...loginSchema,
+  ...authSchema,
   name: yup.string().required('Campo requerido')
 })
 function RegisterPage() {
-  const [state, setState] = useState(initialState)
+  const { state, setState } = useStates()
 
   const {
     control,
@@ -36,7 +36,7 @@ function RegisterPage() {
     resolver: yupResolver(schema)
   })
 
-  const onSubmit = (body: Register) => {
+  const onSubmit = (body: User) => {
     setState({
       ...state,
       loadingSubmit: true

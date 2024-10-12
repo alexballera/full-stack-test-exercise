@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Roboto } from 'next/font/google';
+import { Provider } from "react-redux";
+import { UserProvider } from "./context/UserContext";
 import "./globals.css";
+import store from "./store/store";
 import { AppTheme } from "./theme";
 // ** MUI Imports
 
@@ -26,9 +29,13 @@ export default function RootLayout({
       <body
         className={`${roboto.className}`}
       >
-        <AppTheme>
-          {children}
-        </AppTheme>
+        <Provider store={store}>
+          <UserProvider>
+            <AppTheme>
+              {children}
+            </AppTheme>
+          </UserProvider>
+        </Provider>
       </body>
     </html>
   );

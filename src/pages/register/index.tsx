@@ -1,12 +1,23 @@
 //** Base Imports */
 import Link from 'next/link'
-import { Suspense, useState } from "react"
+import { Suspense, useState } from 'react'
 
 //** Mui Imports */
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt'
 import LoadingButton from '@mui/lab/LoadingButton'
-import { CardActions, CardContent, CircularProgress, FormControl, FormHelperText, Grid2, IconButton, InputAdornment, TextField, Typography } from "@mui/material"
+import {
+  CardActions,
+  CardContent,
+  CircularProgress,
+  FormControl,
+  FormHelperText,
+  Grid2,
+  IconButton,
+  InputAdornment,
+  TextField,
+  Typography
+} from '@mui/material'
 
 // ** Third Party Imports
 import AuthLayout from '@/auth/layaout/AuthLayout'
@@ -132,19 +143,27 @@ function RegisterPage() {
                         slotProps={{
                           input: {
                             endAdornment: (
-                              <InputAdornment position="end">
+                              <InputAdornment position='end'>
                                 <IconButton
-                                  aria-label="toggle password visibility"
-                                  onClick={() => setState({
-                                    ...state,
-                                    showPassword: !state.showPassword
-                                  })}
-                                  onMouseDown={() => setState({
-                                    ...state,
-                                    showPassword: !state.showPassword
-                                  })}
+                                  aria-label='toggle password visibility'
+                                  onClick={() =>
+                                    setState({
+                                      ...state,
+                                      showPassword: !state.showPassword
+                                    })
+                                  }
+                                  onMouseDown={() =>
+                                    setState({
+                                      ...state,
+                                      showPassword: !state.showPassword
+                                    })
+                                  }
                                 >
-                                  {state.showPassword ? <Visibility sx={{ color: 'primary.main' }} /> : <VisibilityOff sx={{ color: 'primary.main' }} />}
+                                  {state.showPassword ? (
+                                    <Visibility sx={{ color: 'primary.main' }} />
+                                  ) : (
+                                    <VisibilityOff sx={{ color: 'primary.main' }} />
+                                  )}
                                 </IconButton>
                               </InputAdornment>
                             )
@@ -165,9 +184,9 @@ function RegisterPage() {
           <CardActions sx={{ p: 2 }}>
             <Grid2
               container
-              direction={"row"}
-              alignItems={"center"}
-              justifyContent={"flex-end"}
+              direction={'row'}
+              alignItems={'center'}
+              justifyContent={'flex-end'}
               size={{ xs: 12 }}
               spacing={2}
             >
@@ -186,14 +205,16 @@ function RegisterPage() {
                 </LoadingButton>
               </Grid2>
               <Grid2 size={{ xs: 12, sm: 9 }} sx={{ textAlign: 'right' }}>
-                <Typography component='span' sx={{ mr: 1, color: 'primary.light' }}>¿Ya tienes cuenta?</Typography>
-                <Link href="/login">Ingresar aquí</Link>
+                <Typography component='span' sx={{ mr: 1, color: 'primary.light' }}>
+                  ¿Ya tienes cuenta?
+                </Typography>
+                <Link href='/login'>Ingresar aquí</Link>
               </Grid2>
             </Grid2>
           </CardActions>
-        </form >
+        </form>
       </AuthLayout>
-    </Suspense >
+    </Suspense>
   )
 }
 export default RegisterPage

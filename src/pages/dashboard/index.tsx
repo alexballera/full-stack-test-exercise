@@ -9,7 +9,5 @@ export default function DashboardPage() {
 
   // Define other routes and logic
 
-  return (
-    <h2>DashboardPage</h2>
-  )
+  return <h2>DashboardPage</h2>
 }

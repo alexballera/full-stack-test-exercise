@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { User, userIS } from '../auth/model'
 
-
 const initialState = {
   user: userIS
 }
@@ -18,7 +17,7 @@ export const userSlice = createSlice({
 
       return { ...state }
     },
-    cleanUserData: (state) => {
+    cleanUserData: state => {
       state = {
         ...state,
         user: initialState.user

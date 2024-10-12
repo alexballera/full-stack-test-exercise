@@ -1,9 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { Visibility, VisibilityOff } from "@mui/icons-material"
-import { CardContent, FormControl, FormHelperText, Grid2, IconButton, InputAdornment, TextField } from "@mui/material"
-import { useState } from "react"
-import { Controller } from "react-hook-form"
+import { Visibility, VisibilityOff } from '@mui/icons-material'
+import {
+  CardContent,
+  FormControl,
+  FormHelperText,
+  Grid2,
+  IconButton,
+  InputAdornment,
+  TextField
+} from '@mui/material'
+import { useState } from 'react'
+import { Controller } from 'react-hook-form'
 
 type Props = {
   control: any
@@ -67,19 +75,27 @@ const FormLogin = (props: Props) => {
                   slotProps={{
                     input: {
                       endAdornment: (
-                        <InputAdornment position="end">
+                        <InputAdornment position='end'>
                           <IconButton
-                            aria-label="toggle password visibility"
-                            onClick={() => setState({
-                              ...state,
-                              showPassword: !state.showPassword
-                            })}
-                            onMouseDown={() => setState({
-                              ...state,
-                              showPassword: !state.showPassword
-                            })}
+                            aria-label='toggle password visibility'
+                            onClick={() =>
+                              setState({
+                                ...state,
+                                showPassword: !state.showPassword
+                              })
+                            }
+                            onMouseDown={() =>
+                              setState({
+                                ...state,
+                                showPassword: !state.showPassword
+                              })
+                            }
                           >
-                            {state.showPassword ? <Visibility sx={{ color: 'primary.main' }} /> : <VisibilityOff sx={{ color: 'primary.main' }} />}
+                            {state.showPassword ? (
+                              <Visibility sx={{ color: 'primary.main' }} />
+                            ) : (
+                              <VisibilityOff sx={{ color: 'primary.main' }} />
+                            )}
                           </IconButton>
                         </InputAdornment>
                       )

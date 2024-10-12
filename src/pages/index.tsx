@@ -1,10 +1,10 @@
 // ** React Imports
-import { useEffect } from 'react';
+import { useEffect } from 'react'
 
 // ** Next Imports
-import FallbackSpinner from '@/@core/components/spinner';
-import Head from "next/head";
-import { useRouter } from 'next/router';
+import FallbackSpinner from '@/@core/components/spinner'
+import Head from 'next/head'
+import { useRouter } from 'next/router'
 
 // ** Spinner Import
 
@@ -39,10 +39,7 @@ const Home = () => {
     <>
       <Head>
         <title>Ray Fullstack Test</title>
-        <meta
-          name="description"
-          content="Ray Fullstack Test Descripción"
-        />
+        <meta name='description' content='Ray Fullstack Test Descripción' />
       </Head>
       <FallbackSpinner />
     </>

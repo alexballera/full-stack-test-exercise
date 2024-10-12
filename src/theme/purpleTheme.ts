@@ -1,6 +1,14 @@
-import { createTheme } from "@mui/material";
-import { blue, red } from "@mui/material/colors";
-import { contrastText, primaryDark, primaryLight, primaryMain, secondaryDark, secondaryLight, secondaryMain } from "../shared";
+import { createTheme } from '@mui/material'
+import { blue, red } from '@mui/material/colors'
+import {
+  contrastText,
+  primaryDark,
+  primaryLight,
+  primaryMain,
+  secondaryDark,
+  secondaryLight,
+  secondaryMain
+} from '../shared'
 
 export const purpleTheme = createTheme({
   palette: {
@@ -9,7 +17,6 @@ export const purpleTheme = createTheme({
       light: primaryLight,
       dark: primaryDark,
       contrastText: contrastText
-      
     },
     secondary: {
       main: secondaryMain,

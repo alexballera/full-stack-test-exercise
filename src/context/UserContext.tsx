@@ -12,7 +12,6 @@ type UserContextTypes = {
   showPassword: boolean
 }
 
-
 const initialState = {
   loading: false,
   loadingGoogle: false,
@@ -36,11 +35,7 @@ export function UserProvider({ children }: UserProviderProps) {
     setState
   }
 
-  return (
-    <UserContext.Provider value={{ ...values }}>
-      {children}
-    </UserContext.Provider>
-  )
+  return <UserContext.Provider value={{ ...values }}>{children}</UserContext.Provider>
 }
 
 export const useUserContext = () => useContext(UserContext)

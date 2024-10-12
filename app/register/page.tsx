@@ -4,10 +4,10 @@ import Link from 'next/link'
 import { Suspense, useState } from "react"
 
 //** Mui Imports */
-import { Google, Visibility, VisibilityOff } from '@mui/icons-material'
-import LoginIcon from '@mui/icons-material/Login'
+import { Visibility, VisibilityOff } from '@mui/icons-material'
+import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt'
 import LoadingButton from '@mui/lab/LoadingButton'
-import { CardActions, CardContent, CircularProgress, FormControl, FormHelperText, Grid2, IconButton, InputAdornment, TextField } from "@mui/material"
+import { CardActions, CardContent, CircularProgress, FormControl, FormHelperText, Grid2, IconButton, InputAdornment, TextField, Typography } from "@mui/material"
 
 // ** Third Party Imports
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -16,7 +16,7 @@ import * as yup from 'yup'
 
 //** Store  && Services Imports */
 import AuthLayout from '../auth/layaout/AuthLayout'
-import { RegisterIS as defaultValues, loginSchema } from '../auth/model'
+import { RegisterIS as defaultValues, loginSchema, Register } from '../auth/model'
 import { initialState } from '../login/page'
 
 const schema = yup.object().shape({
@@ -36,7 +36,7 @@ function RegisterPage() {
     resolver: yupResolver(schema)
   })
 
-  const onSubmit = (body: Login) => {
+  const onSubmit = (body: Register) => {
     setState({
       ...state,
       loadingSubmit: true
@@ -169,21 +169,7 @@ function RegisterPage() {
               size={{ xs: 12 }}
               spacing={2}
             >
-              <Grid2 size={{ xs: 12, sm: 6 }}>
-                <LoadingButton
-                  fullWidth
-                  size='large'
-                  type='submit'
-                  loading={state.loadingGoogle}
-                  color={'primary'}
-                  variant={'contained'}
-                  loadingPosition={'end'}
-                  endIcon={<Google />}
-                >
-                  Google
-                </LoadingButton>
-              </Grid2>
-              <Grid2 size={{ xs: 12, sm: 6 }}>
+              <Grid2 size={{ xs: 12 }}>
                 <LoadingButton
                   fullWidth
                   size='large'
@@ -192,13 +178,14 @@ function RegisterPage() {
                   color={'primary'}
                   variant={'contained'}
                   loadingPosition={'end'}
-                  endIcon={<LoginIcon />}
+                  endIcon={<PersonAddAltIcon />}
                 >
-                  Login
+                  Crear cuenta
                 </LoadingButton>
               </Grid2>
-              <Grid2 size={{ xs: 12, sm: 8 }} sx={{ textAlign: 'right' }}>
-                <Link href="/login">Iniciar sesión</Link>
+              <Grid2 size={{ xs: 12, sm: 9 }} sx={{ textAlign: 'right' }}>
+                <Typography component='span' sx={{ mr: 1, color: 'primary.light' }}>¿Ya tienes cuenta?</Typography>
+                <Link href="/login">Ingresar aquí</Link>
               </Grid2>
             </Grid2>
           </CardActions>

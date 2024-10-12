@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Roboto } from 'next/font/google';
 import "./globals.css";
+import { AppTheme } from "./theme";
+// ** MUI Imports
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700"],
@@ -24,7 +26,9 @@ export default function RootLayout({
       <body
         className={`${roboto.className}`}
       >
-        {children}
+        <AppTheme>
+          {children}
+        </AppTheme>
       </body>
     </html>
   );

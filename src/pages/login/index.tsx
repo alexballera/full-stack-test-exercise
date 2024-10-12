@@ -14,8 +14,8 @@ import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
 //** Store  && Services Imports */
-import AuthLayout from '@/auth/layaout/AuthLayout'
-import { Auth, authSchema, userIS as defaultValues } from '@/auth/model'
+import AuthLayout from '@/@core/auth/layaout/AuthLayout'
+import { Auth, authSchema, userIS as defaultValues } from '@/@core/auth/model'
 import FormLogin from '@/bundle/login/components/formLogin'
 import { Metadata } from 'next'
 import Head from 'next/head'

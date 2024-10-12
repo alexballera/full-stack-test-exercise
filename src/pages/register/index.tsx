@@ -20,8 +20,8 @@ import {
 } from '@mui/material'
 
 // ** Third Party Imports
-import AuthLayout from '@/auth/layaout/AuthLayout'
-import { authSchema, userIS as defaultValues, User } from '@/auth/model'
+import AuthLayout from '@/@core/auth/layaout/AuthLayout'
+import { authSchema, userIS as defaultValues, User } from '@/@core/auth/model'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Controller, useForm } from 'react-hook-form'
 import * as yup from 'yup'

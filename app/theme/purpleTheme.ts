@@ -1,21 +1,21 @@
 import { createTheme } from "@mui/material";
 import { blue, red } from "@mui/material/colors";
-import { primaryMain, secondaryMain } from "../shared";
+import { contrastText, primaryDark, primaryLight, primaryMain, secondaryDark, secondaryLight, secondaryMain } from "../shared";
 
 export const purpleTheme = createTheme({
   palette: {
     primary: {
       main: primaryMain,
-      light: '#484c8c',
-      dark: '#262254',
-      contrastText: '#FFF'
+      light: primaryLight,
+      dark: primaryDark,
+      contrastText: contrastText
       
     },
     secondary: {
       main: secondaryMain,
-      light: '#664593',
-      dark: '#3c2868',
-      contrastText: '#FFF'
+      light: secondaryLight,
+      dark: secondaryDark,
+      contrastText: contrastText
     },
     error: {
       main: red.A400

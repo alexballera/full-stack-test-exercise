@@ -1,20 +1,34 @@
 'use client'
+//** Base Imports */
+import Link from 'next/link'
+import { Suspense, useState } from "react"
+
+//** Mui Imports */
+import { Google, Visibility, VisibilityOff } from '@mui/icons-material'
 import LoginIcon from '@mui/icons-material/Login'
 import LoadingButton from '@mui/lab/LoadingButton'
 import { CardActions, CardContent, CircularProgress, FormControl, FormHelperText, Grid2, IconButton, InputAdornment, TextField } from "@mui/material"
 
 // ** Third Party Imports
 import { yupResolver } from '@hookform/resolvers/yup'
-import { Google, Visibility, VisibilityOff } from '@mui/icons-material'
-import Link from 'next/link'
-import { Suspense, useState } from "react"
 import { Controller, useForm } from 'react-hook-form'
-import AuthLayout from '../auth/layaout/AuthLayout'
-import { defaultValues, Login, schema } from './model'
+import * as yup from 'yup'
 
+//** Store  && Services Imports */
+import AuthLayout from '../auth/layaout/AuthLayout'
+import { LoginIS as defaultValues, Login, loginSchema } from '../auth/model'
+
+const schema = yup.object().shape({
+  ...loginSchema
+})
+
+export const initialState = {
+  loadingGoogle: false,
+  loadingSubmit: false,
+  showPassword: false
+}
 function LoginPage() {
-  const [loading, setLoading] = useState<boolean>(false)
-  const [showPassword, setShowPassword] = useState<boolean>(false)
+  const [state, setState] = useState(initialState)
 
   const {
     control,
@@ -27,14 +41,18 @@ function LoginPage() {
   })
 
   const onSubmit = (body: Login) => {
-    setLoading(true)
+    setState({
+      ...state,
+      loadingSubmit: true
+    })
     setTimeout(() => {
-      setLoading(false)
+      setState({
+        ...state,
+        loadingSubmit: false
+      })
       console.log(body)
     }, 2000)
   }
-
-  if (loading) return <CircularProgress disableShrink sx={{ mt: 6 }} />
 
   return (
     <Suspense fallback={<CircularProgress disableShrink sx={{ mt: 6 }} />}>
@@ -53,9 +71,9 @@ function LoginPage() {
                         label='Email'
                         onChange={onChange}
                         type='email'
-                        placeholder='Escriba correo electrónico'
+                        placeholder='correo@correo.com'
                         aria-describedby='correo-electronico'
-                        disabled={loading}
+                        disabled={state.loadingGoogle || state.loadingSubmit}
                         color='secondary'
                         error={Boolean(errors.email)}
                         sx={{ color: 'primary.dark' }}
@@ -79,10 +97,10 @@ function LoginPage() {
                         value={value}
                         label='Contraseña'
                         onChange={onChange}
-                        type={showPassword ? 'text' : 'password'}
+                        type={state.showPassword ? 'text' : 'password'}
                         placeholder='Escriba contraseña'
                         aria-describedby='password'
-                        disabled={loading}
+                        disabled={state.loadingGoogle || state.loadingSubmit}
                         color='secondary'
                         sx={{ color: 'primary.dark' }}
                         error={Boolean(errors.password)}
@@ -92,10 +110,16 @@ function LoginPage() {
                               <InputAdornment position="end">
                                 <IconButton
                                   aria-label="toggle password visibility"
-                                  onClick={() => setShowPassword(!showPassword)}
-                                  onMouseDown={() => setShowPassword(!showPassword)}
+                                  onClick={() => setState({
+                                    ...state,
+                                    showPassword: !state.showPassword
+                                  })}
+                                  onMouseDown={() => setState({
+                                    ...state,
+                                    showPassword: !state.showPassword
+                                  })}
                                 >
-                                  {showPassword ? <Visibility sx={{ color: 'primary.main' }} /> : <VisibilityOff sx={{ color: 'primary.main' }} />}
+                                  {state.showPassword ? <Visibility sx={{ color: 'primary.main' }} /> : <VisibilityOff sx={{ color: 'primary.main' }} />}
                                 </IconButton>
                               </InputAdornment>
                             )
@@ -127,7 +151,7 @@ function LoginPage() {
                   fullWidth
                   size='large'
                   type='submit'
-                  loading={loading}
+                  loading={state.loadingGoogle}
                   color={'primary'}
                   variant={'contained'}
                   loadingPosition={'end'}
@@ -141,7 +165,7 @@ function LoginPage() {
                   fullWidth
                   size='large'
                   type='submit'
-                  loading={loading}
+                  loading={state.loadingSubmit}
                   color={'primary'}
                   variant={'contained'}
                   loadingPosition={'end'}

@@ -1,22 +1,29 @@
 //** Base Imports */
 import Link from 'next/link'
-import { Suspense } from 'react'
+import { Suspense, useEffect } from 'react'
 
 //** Mui Imports */
 import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt'
 import LoadingButton from '@mui/lab/LoadingButton'
 import { CardActions, CircularProgress, Grid2, Typography } from '@mui/material'
 
-// ** Third Party Imports
-import AuthLayout from '@/@core/auth/layaout/AuthLayout'
+//** Store  && Services Imports */
 import { useUserContext } from '@/@core/context/UserContext'
-import { authSchema, userIS as defaultValues, User } from '@/@core/models/userModel'
-import FormRegister from '@/bundle/register/formRegister'
+import { userIS as defaultValues, User } from '@/@core/models/userModel'
+import { useDispatch, useSelector } from '@/@core/store'
+import { startCreatingUserWithEmailAndPassword } from '@/@core/store/auth'
+
+// ** Third Party Imports
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
-//** Store  && Services Imports */
+//** Custom Components Imports */
+import AuthLayout from '@/@core/auth/layaout/AuthLayout'
+import ErrorMessage from '@/@core/components/ErrorMessage'
+import { authSchema } from '@/@core/shared'
+import FormRegister from '@/bundle/register/formRegister'
 
 const schema = yup.object().shape({
   ...authSchema,
@@ -24,6 +31,12 @@ const schema = yup.object().shape({
 })
 function RegisterPage() {
   const { state, setState } = useUserContext()
+  const dispatch = useDispatch()
+  const router = useRouter()
+
+  const {
+    AUTH: { status, errorMessage }
+  } = useSelector(state => state)
 
   const {
     control,
@@ -35,22 +48,29 @@ function RegisterPage() {
     resolver: yupResolver(schema)
   })
 
+  useEffect(() => {
+    setState({
+      ...state,
+      loadingGoogle: false,
+      loadingSubmit: false
+    })
+    if (status === 'authenticated') {
+      router.replace('/dashboard')
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router, status])
   const onSubmit = (body: User) => {
     setState({
       ...state,
       loadingSubmit: true
     })
-    setTimeout(() => {
-      setState({
-        ...state,
-        loadingSubmit: false
-      })
-      console.log(body)
-    }, 2000)
+    dispatch(startCreatingUserWithEmailAndPassword(body))
   }
 
   return (
     <Suspense fallback={<CircularProgress disableShrink sx={{ mt: 6 }} />}>
+      {status === 'error' && <ErrorMessage status={status} errorMessage={errorMessage} />}
       <AuthLayout
         title='Registro'
         metaTitle='Ray Registro Fullstack Test'

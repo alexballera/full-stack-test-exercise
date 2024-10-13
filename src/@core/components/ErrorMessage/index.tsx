@@ -7,10 +7,11 @@ import { SyntheticEvent, useEffect, useState } from 'react'
 
 type ErrorMessageProps = {
   status: 'checking' | 'not-authenticated' | 'authenticated' | 'error'
+  errorMessage?: string | null
 }
 
 const ErrorMessage = (props: ErrorMessageProps) => {
-  const { status } = props
+  const { status, errorMessage } = props
   const [open, setOpen] = useState(false)
   const { state, setState } = useUserContext()
   const dispatch = useDispatch()
@@ -24,6 +25,17 @@ const ErrorMessage = (props: ErrorMessageProps) => {
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [status])
+
+  const handleShowMessage = () => {
+    console.log(errorMessage)
+    switch (errorMessage) {
+      case 'Firebase: Error (auth/email-already-in-use).':
+        return 'Este correo ya está en uso'
+
+      default:
+        return 'Ha ocurrido un error inesperado'
+    }
+  }
 
   const handleClose = (event?: SyntheticEvent | Event, reason?: SnackbarCloseReason) => {
     if (reason === 'clickaway') {
@@ -41,7 +53,7 @@ const ErrorMessage = (props: ErrorMessageProps) => {
       onClose={handleClose}
     >
       <Alert onClose={handleClose} severity='error' variant='filled' sx={{ width: '100%' }}>
-        ¡Ha ocurrido un error inesperado!
+        {handleShowMessage()}
       </Alert>
     </Snackbar>
   )

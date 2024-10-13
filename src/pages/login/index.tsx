@@ -17,13 +17,14 @@ import * as yup from 'yup'
 
 //** Store  && Services Imports */
 import { useUserContext } from '@/@core/context/UserContext'
-import { Auth, authSchema, userIS as defaultValues } from '@/@core/models/userModel'
+import { Auth, userIS as defaultValues } from '@/@core/models/userModel'
 import { useDispatch, useSelector } from '@/@core/store'
 import { checkingAuthentication, startGoogleSign } from '@/@core/store/auth'
 
 //** Custom Components Imports */
 import AuthLayout from '@/@core/auth/layaout/AuthLayout'
 import ErrorMessage from '@/@core/components/ErrorMessage'
+import { authSchema } from '@/@core/shared'
 import FormLogin from '@/bundle/login/formLogin'
 
 export const metadata: Metadata = {
@@ -58,12 +59,12 @@ function LoginPage() {
   })
 
   useEffect(() => {
+    setState({
+      ...state,
+      loadingGoogle: false,
+      loadingSubmit: false
+    })
     if (status === 'authenticated') {
-      setState({
-        ...state,
-        loadingGoogle: false,
-        loadingSubmit: false
-      })
       router.replace('/dashboard')
     }
 

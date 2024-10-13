@@ -12,9 +12,10 @@ export default function HomePage() {
       <Card>
         <CardMedia
           component='img'
-          height='250'
+          height='200'
           image='/images/RAY-Brand-Red-01.svg'
           alt='Ray Brand'
+          sx={{ mt: 4 }}
         />
         <CardContent sx={{ px: 4 }}>
           <Grid2 size={{ xs: 12 }}>

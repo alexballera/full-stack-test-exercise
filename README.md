@@ -1,40 +1,41 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# RAY Login Challenge
 
-## Getting Started
+## Tecnología:
 
-First, run the development server:
+Utilicé la última versión de Nextjs en el front y Firebase para el proceso de autenticación y persistencia de datos
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Anexo 2 archivos zip: uno con todo el código fuente del proyecto y otro con los archivos listos para desplegarlos, adicionalmente envío un enlace del repositorio en Github del proyecto y un enlace del proyecto en producción.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### GitHub
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+[Enlace al proyecto haciendo click aquí](https://github.com/alexballera/full-stack-test-exercise)
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+### Enlace en "producción"
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+[Enlace del proyecto aquí](https://ray-prueba-fullstack.netlify.app/home)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Manejador de estados
 
-## Learn More
+Para el manejo de los estados de la aplicación utilicé Redux Toolkit, con el cual contruí el store en donde se persisten los datos del usuario logueado con el token para verificar su status con Firebase y usar sus datos de manera global en el proyecto, de manera que se pueda acceder a los datos del usuario en cualquier sitio de la palicación.
 
-To learn more about Next.js, take a look at the following resources:
+También utilicé el hook del contexto (context) como auxiliar para el manejo de estados entre componentes.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Vistas
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Para el cumplimiento del reto relacionado con el login se realizaron 4 vistas.
 
-## Deploy on Vercel
+### Home
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Esta vista es pública, se puede acceder sin necesidad de loguearse, acá se muestran los enlaces para el registro o login.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Login
+
+Muestra un formulario con correo y password para loguearse y con la posibilidad de loguearse con Google. En el caso de Google, automáticamente registra al usuario y luego le permite el acceso a la app.
+
+### Register
+
+Muestra un formulario con 3 campos: Nombre y apellido, correo y password para realizar el registro respectivo, una vez registrado se loguea automáticamente y permite el acceso a la app.
+
+### Dashboard
+
+Es la vista que se muestra una vez logueado, si se dirige a esta vista por el navegador y el usuario no se encuentra autenticado se redirecciona al Home. En esta vista tiene un botón para desloguearse.

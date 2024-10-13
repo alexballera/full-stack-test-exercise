@@ -39,3 +39,7 @@ Muestra un formulario con 3 campos: Nombre y apellido, correo y password para re
 ### Dashboard
 
 Es la vista que se muestra una vez logueado, si se dirige a esta vista por el navegador y el usuario no se encuentra autenticado se redirecciona al Home. En esta vista tiene un botón para desloguearse.
+
+### SEO
+
+A cada vista se le modifican las metadatas, para mostrar que se pueden modificar para temas de optimización en los motores de búsqueda.

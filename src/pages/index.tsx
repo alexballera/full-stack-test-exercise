@@ -3,14 +3,10 @@ import { useEffect } from 'react'
 
 // ** Next Imports
 import FallbackSpinner from '@/@core/components/spinner'
+import useCheckAuth from '@/@core/hooks/useCheckAuth'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 
-// ** Spinner Import
-
-/**
- *  Set Home URL based on User Roles
- */
 export const getHomeRoute = (route: string) => {
   return route
 }
@@ -18,6 +14,7 @@ export const getHomeRoute = (route: string) => {
 const Home = () => {
   //** Hooks */
   const router = useRouter()
+  const { checkAuth } = useCheckAuth()
 
   useEffect(() => {
     if (!router.isReady) {
@@ -25,10 +22,7 @@ const Home = () => {
     }
 
     const timeoutId = setTimeout(() => {
-      /* if (HOME_ROUTE) {
-        router.replace(HOME_ROUTE.toString())
-        } */
-      router.replace('/home')
+      checkAuth()
     }, 1000)
 
     return () => clearTimeout(timeoutId)

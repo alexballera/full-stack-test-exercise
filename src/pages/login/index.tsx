@@ -19,11 +19,12 @@ import * as yup from 'yup'
 import { useUserContext } from '@/@core/context/UserContext'
 import { Auth, userIS as defaultValues } from '@/@core/models/userModel'
 import { useDispatch, useSelector } from '@/@core/store'
-import { checkingAuthentication, startGoogleSign } from '@/@core/store/auth'
+import { startGoogleSign, startLoginWithEmailPassword } from '@/@core/store/auth'
 
 //** Custom Components Imports */
 import AuthLayout from '@/@core/auth/layaout/AuthLayout'
 import ErrorMessage from '@/@core/components/ErrorMessage'
+import useCheckAuth from '@/@core/hooks/useCheckAuth'
 import { authSchema } from '@/@core/shared'
 import FormLogin from '@/bundle/login/formLogin'
 
@@ -41,6 +42,7 @@ function LoginPage() {
 
   //** Hooks */
   const dispatch = useDispatch()
+  const { checkAuth } = useCheckAuth()
   const router = useRouter()
   const {
     AUTH: { status }
@@ -57,6 +59,11 @@ function LoginPage() {
     mode: 'onChange',
     resolver: yupResolver(schema)
   })
+
+  useEffect(() => {
+    checkAuth()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   useEffect(() => {
     setState({
@@ -84,7 +91,7 @@ function LoginPage() {
       ...state,
       loadingSubmit: true
     })
-    dispatch(checkingAuthentication(body))
+    dispatch(startLoginWithEmailPassword(body))
   }
 
   return (

@@ -22,6 +22,7 @@ import * as yup from 'yup'
 //** Custom Components Imports */
 import AuthLayout from '@/@core/auth/layaout/AuthLayout'
 import ErrorMessage from '@/@core/components/ErrorMessage'
+import useCheckAuth from '@/@core/hooks/useCheckAuth'
 import { authSchema } from '@/@core/shared'
 import FormRegister from '@/bundle/register/formRegister'
 
@@ -31,6 +32,7 @@ const schema = yup.object().shape({
 })
 function RegisterPage() {
   const { state, setState } = useUserContext()
+  const { checkAuth } = useCheckAuth()
   const dispatch = useDispatch()
   const router = useRouter()
 
@@ -49,6 +51,11 @@ function RegisterPage() {
   })
 
   useEffect(() => {
+    checkAuth()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  useEffect(() => {
     setState({
       ...state,
       loadingGoogle: false,
@@ -65,7 +72,8 @@ function RegisterPage() {
       ...state,
       loadingSubmit: true
     })
-    dispatch(startCreatingUserWithEmailAndPassword(body))
+    const { email, password, name } = body
+    dispatch(startCreatingUserWithEmailAndPassword({ email, password, name }))
   }
 
   return (

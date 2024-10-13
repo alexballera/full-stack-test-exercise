@@ -32,6 +32,8 @@ const ErrorMessage = (props: ErrorMessageProps) => {
       case 'Firebase: Error (auth/email-already-in-use).':
         return 'Este correo ya está en uso'
 
+      case 'INVALID_LOGIN_CREDENTIALS':
+        return 'Email o password inválido'
       default:
         return 'Ha ocurrido un error inesperado'
     }

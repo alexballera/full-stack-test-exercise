@@ -1,7 +1,8 @@
 //** Base Imports */
 import { Metadata } from 'next'
 import Link from 'next/link'
-import { Suspense, useMemo } from 'react'
+import { useRouter } from 'next/router'
+import { Suspense, useEffect, useMemo } from 'react'
 
 //** Mui Imports */
 import { Google } from '@mui/icons-material'
@@ -15,11 +16,14 @@ import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
 //** Store  && Services Imports */
-import AuthLayout from '@/@core/auth/layaout/AuthLayout'
 import { useUserContext } from '@/@core/context/UserContext'
 import { Auth, authSchema, userIS as defaultValues } from '@/@core/models/userModel'
 import { useDispatch, useSelector } from '@/@core/store'
 import { checkingAuthentication, startGoogleSign } from '@/@core/store/auth'
+
+//** Custom Components Imports */
+import AuthLayout from '@/@core/auth/layaout/AuthLayout'
+import ErrorMessage from '@/@core/components/ErrorMessage'
 import FormLogin from '@/bundle/login/formLogin'
 
 export const metadata: Metadata = {
@@ -32,10 +36,11 @@ const schema = yup.object().shape({
 })
 
 function LoginPage() {
-  const { state } = useUserContext()
+  const { state, setState } = useUserContext()
 
   //** Hooks */
   const dispatch = useDispatch()
+  const router = useRouter()
   const {
     AUTH: { status }
   } = useSelector(state => state)
@@ -52,16 +57,38 @@ function LoginPage() {
     resolver: yupResolver(schema)
   })
 
+  useEffect(() => {
+    if (status === 'authenticated') {
+      setState({
+        ...state,
+        loadingGoogle: false,
+        loadingSubmit: false
+      })
+      router.replace('/dashboard')
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router, status])
+
   const handleGoogleSignIn = () => {
+    setState({
+      ...state,
+      loadingGoogle: true
+    })
     dispatch(startGoogleSign())
   }
 
   const onSubmit = (body: Auth) => {
+    setState({
+      ...state,
+      loadingSubmit: true
+    })
     dispatch(checkingAuthentication(body))
   }
 
   return (
     <Suspense fallback={<CircularProgress disableShrink sx={{ mt: 6 }} />}>
+      {status === 'error' && <ErrorMessage status={status} />}
       <AuthLayout
         title='Login'
         metaTitle='Ray Login Fullstack Test'
@@ -83,7 +110,7 @@ function LoginPage() {
                   fullWidth
                   size='large'
                   type='button'
-                  loading={state.loadingGoogle}
+                  loading={state.loadingGoogle && status === 'checking'}
                   color={'primary'}
                   variant={'contained'}
                   loadingPosition={'end'}
@@ -99,7 +126,7 @@ function LoginPage() {
                   fullWidth
                   size='large'
                   type='submit'
-                  loading={state.loadingSubmit || status === 'checking'}
+                  loading={state.loadingSubmit && status === 'checking'}
                   color={'primary'}
                   variant={'contained'}
                   loadingPosition={'end'}

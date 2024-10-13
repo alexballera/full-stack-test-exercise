@@ -1,5 +1,5 @@
 import LayoutPage from '@/@core/components/layouts/LayoutPage'
-import { Card, CardContent, CardHeader, Grid2, Typography } from '@mui/material'
+import { Card, CardContent, CardMedia, Grid2, Typography } from '@mui/material'
 import Link from 'next/link'
 
 export default function HomePage() {
@@ -10,10 +10,32 @@ export default function HomePage() {
       size={{ xs: 12, sm: 8 }}
     >
       <Card>
-        <CardHeader title='HomePage' sx={{ color: 'primary.dark', p: 4, pb: 0 }} />
+        <CardMedia
+          component='img'
+          height='250'
+          image='/images/RAY-Brand-Red-01.svg'
+          alt='Ray Brand'
+        />
         <CardContent sx={{ px: 4 }}>
           <Grid2 size={{ xs: 12 }}>
             <Typography variant='h2'>Página pública</Typography>
+          </Grid2>
+          <Grid2 size={{ xs: 12 }}>
+            <Typography sx={{ mb: 2 }}>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis aut magni, illum
+              numquam suscipit iste cum vitae enim dolorem id? Nemo sit ullam libero quod dolorem
+              facere ducimus voluptatibus doloribus.
+            </Typography>
+            <Typography sx={{ my: 2 }}>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis aut magni, illum
+              numquam suscipit iste cum vitae enim dolorem id? Nemo sit ullam libero quod dolorem
+              facere ducimus voluptatibus doloribus.
+            </Typography>
+            <Typography sx={{ mt: 2 }}>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis aut magni, illum
+              numquam suscipit iste cum vitae enim dolorem id? Nemo sit ullam libero quod dolorem
+              facere ducimus voluptatibus doloribus.
+            </Typography>
           </Grid2>
           <Grid2 size={{ xs: 12 }} sx={{ textAlign: 'center', mt: 5 }}>
             <Typography component='span' sx={{ mr: 1, color: 'primary.light' }}>

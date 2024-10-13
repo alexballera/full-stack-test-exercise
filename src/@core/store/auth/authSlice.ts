@@ -22,6 +22,17 @@ export const authSlice = createSlice({
       state.uid = null
       state.photoURL = null
       state.errorMessage = payload.errorMessage
+      state.errorCode = payload.errorCode
+    },
+    isError: (state: AuthDTO, { payload }) => {
+      state.status = 'error'
+      state.accessToken = null
+      state.displayName = null
+      state.email = null
+      state.uid = null
+      state.photoURL = null
+      state.errorMessage = payload.errorMessage
+      state.errorCode = payload.errorCode
     },
     checkingCredentials: (state: AuthDTO) => {
       state.status = 'checking'
@@ -29,5 +40,5 @@ export const authSlice = createSlice({
   }
 })
 
-export const { checkingCredentials, logOut, logIn } = authSlice.actions
+export const { checkingCredentials, logOut, logIn, isError } = authSlice.actions
 export default authSlice.reducer

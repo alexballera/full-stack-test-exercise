@@ -1,6 +1,6 @@
 //** Base Imports */
 import Link from 'next/link'
-import { Suspense, useState } from 'react'
+import { Suspense } from 'react'
 
 //** Mui Imports */
 import { Visibility, VisibilityOff } from '@mui/icons-material'
@@ -22,6 +22,7 @@ import {
 // ** Third Party Imports
 import AuthLayout from '@/@core/auth/layaout/AuthLayout'
 import { authSchema, userIS as defaultValues, User } from '@/@core/auth/model'
+import { useUserContext } from '@/@core/context/UserContext'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Controller, useForm } from 'react-hook-form'
 import * as yup from 'yup'
@@ -33,11 +34,7 @@ const schema = yup.object().shape({
   name: yup.string().required('Campo requerido')
 })
 function RegisterPage() {
-  const [state, setState] = useState({
-    loadingGoogle: false,
-    loadingSubmit: false,
-    showPassword: false
-  })
+  const { state, setState } = useUserContext()
 
   const {
     control,
@@ -65,7 +62,11 @@ function RegisterPage() {
 
   return (
     <Suspense fallback={<CircularProgress disableShrink sx={{ mt: 6 }} />}>
-      <AuthLayout title='Registro'>
+      <AuthLayout
+        title='Registro'
+        metaTitle='Ray Registro Fullstack Test'
+        metaDescription='Ray Registro Fullstack Test Descripción'
+      >
         <form onSubmit={handleSubmit(onSubmit)}>
           <CardContent>
             <Grid2 container spacing={2}>

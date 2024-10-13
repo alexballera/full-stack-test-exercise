@@ -1,5 +1,5 @@
-import { Grid2, Typography } from '@mui/material'
-import Head from 'next/head'
+import LayoutPage from '@/@core/components/layouts/LayoutPage'
+import { Typography } from '@mui/material'
 import { redirect } from 'next/navigation'
 
 export default function DashboardPage() {
@@ -12,21 +12,11 @@ export default function DashboardPage() {
   // Define other routes and logic
 
   return (
-    <>
-      <Head>
-        <title>Ray DashboardPage Fullstack Test</title>
-        <meta name='description' content='Ray Home Fullstack Test Descripción' />
-      </Head>
-      <Grid2
-        container
-        spacing={0}
-        direction={'column'}
-        alignItems={'center'}
-        justifyContent={'center'}
-        sx={{ minHeight: '100vh', p: 4, backgroundColor: 'primary.dark' }}
-      >
-        <Typography variant='h1'>DashboardPage</Typography>
-      </Grid2>
-    </>
+    <LayoutPage
+      title='Ray DashboardPage Fullstack Test'
+      description='Ray DashboardPage Fullstack Test Descripción'
+    >
+      <Typography variant='h1'>DashboardPage</Typography>
+    </LayoutPage>
   )
 }

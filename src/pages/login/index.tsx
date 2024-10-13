@@ -1,6 +1,6 @@
 //** Base Imports */
 import Link from 'next/link'
-import { Suspense, useState } from 'react'
+import { Suspense } from 'react'
 
 //** Mui Imports */
 import { Google } from '@mui/icons-material'
@@ -16,9 +16,9 @@ import * as yup from 'yup'
 //** Store  && Services Imports */
 import AuthLayout from '@/@core/auth/layaout/AuthLayout'
 import { Auth, authSchema, userIS as defaultValues } from '@/@core/auth/model'
+import { useUserContext } from '@/@core/context/UserContext'
 import FormLogin from '@/bundle/login/components/formLogin'
 import { Metadata } from 'next'
-import Head from 'next/head'
 
 export const metadata: Metadata = {
   title: 'Fullstack Test',
@@ -30,11 +30,7 @@ const schema = yup.object().shape({
 })
 
 function LoginPage() {
-  const [state, setState] = useState({
-    loadingGoogle: false,
-    loadingSubmit: false,
-    showPassword: false
-  })
+  const { state, setState } = useUserContext()
 
   //** Hooks */
 
@@ -64,11 +60,11 @@ function LoginPage() {
 
   return (
     <Suspense fallback={<CircularProgress disableShrink sx={{ mt: 6 }} />}>
-      <Head>
-        <title>Ray Login Fullstack Test</title>
-        <meta name='description' content='Ray Login Fullstack Test Descripción' />
-      </Head>
-      <AuthLayout title='Login'>
+      <AuthLayout
+        title='Login'
+        metaTitle='Ray Login Fullstack Test'
+        metaDescription='Ray Login Fullstack Test Descripción'
+      >
         <form onSubmit={handleSubmit(onSubmit)}>
           <FormLogin control={control} errors={errors} />
           <CardActions sx={{ p: 2 }}>

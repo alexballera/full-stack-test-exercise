@@ -11,7 +11,8 @@ const FallbackSpinner = () => {
         display: 'flex',
         alignItems: 'center',
         flexDirection: 'column',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        backgroundColor: 'primary.dark'
       }}
     >
       <Image

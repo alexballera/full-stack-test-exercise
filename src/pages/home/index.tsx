@@ -1,14 +1,23 @@
-import { Typography } from '@mui/material'
+import { Grid2, Typography } from '@mui/material'
 import Head from 'next/head'
 
-export default function Home() {
+export default function HomePage() {
   return (
     <>
       <Head>
         <title>Ray Home Fullstack Test</title>
         <meta name='description' content='Ray Home Fullstack Test Descripción' />
       </Head>
-      <Typography variant='h1'>Acá toy</Typography>
+      <Grid2
+        container
+        spacing={0}
+        direction={'column'}
+        alignItems={'center'}
+        justifyContent={'center'}
+        sx={{ minHeight: '100vh', p: 4, backgroundColor: 'primary.dark' }}
+      >
+        <Typography variant='h1'>HomePage</Typography>
+      </Grid2>
     </>
   )
 }

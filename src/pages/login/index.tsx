@@ -24,7 +24,6 @@ import { startGoogleSign, startLoginWithEmailPassword } from '@/@core/store/auth
 //** Custom Components Imports */
 import AuthLayout from '@/@core/auth/layaout/AuthLayout'
 import ErrorMessage from '@/@core/components/ErrorMessage'
-import useCheckAuth from '@/@core/hooks/useCheckAuth'
 import { authSchema } from '@/@core/shared'
 import FormLogin from '@/bundle/login/formLogin'
 
@@ -42,7 +41,6 @@ function LoginPage() {
 
   //** Hooks */
   const dispatch = useDispatch()
-  const { checkAuth } = useCheckAuth()
   const router = useRouter()
   const {
     AUTH: { status }
@@ -59,11 +57,6 @@ function LoginPage() {
     mode: 'onChange',
     resolver: yupResolver(schema)
   })
-
-  useEffect(() => {
-    checkAuth()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   useEffect(() => {
     setState({
@@ -102,7 +95,10 @@ function LoginPage() {
         metaTitle='Ray Login Fullstack Test'
         metaDescription='Ray Login Fullstack Test Descripción'
       >
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className='animate__animated animate__fadeIn animate__faster'
+        >
           <FormLogin control={control} errors={errors} />
           <CardActions sx={{ p: 2 }}>
             <Grid2

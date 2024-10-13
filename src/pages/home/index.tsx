@@ -9,7 +9,7 @@ export default function HomePage() {
       description='Ray Home Fullstack Test Descripción'
       size={{ xs: 12, sm: 8 }}
     >
-      <Card>
+      <Card className='animate__animated animate__fadeIn animate__faster'>
         <CardMedia
           component='img'
           height='200'
@@ -19,7 +19,7 @@ export default function HomePage() {
         />
         <CardContent sx={{ px: 4 }}>
           <Grid2 size={{ xs: 12 }}>
-            <Typography variant='h2'>Página pública</Typography>
+            <Typography variant='h2'>Home con información pública</Typography>
           </Grid2>
           <Grid2 size={{ xs: 12 }}>
             <Typography sx={{ mb: 2 }}>
@@ -28,11 +28,6 @@ export default function HomePage() {
               facere ducimus voluptatibus doloribus.
             </Typography>
             <Typography sx={{ my: 2 }}>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis aut magni, illum
-              numquam suscipit iste cum vitae enim dolorem id? Nemo sit ullam libero quod dolorem
-              facere ducimus voluptatibus doloribus.
-            </Typography>
-            <Typography sx={{ mt: 2 }}>
               Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis aut magni, illum
               numquam suscipit iste cum vitae enim dolorem id? Nemo sit ullam libero quod dolorem
               facere ducimus voluptatibus doloribus.

@@ -1,6 +1,8 @@
+import { initialState } from '@/@core/models'
 import { checkingCredentials, isError, logIn, logOut } from '.'
 import {
   loginWithEmailPassword,
+  logOutFirebase,
   registerUserWithEmailPassword,
   singInWithGoogle
 } from '../../../../firebase/providers'
@@ -53,5 +55,13 @@ export const startLoginWithEmailPassword = body => {
       return
     }
     dispatch(logIn(result))
+  }
+}
+
+export const startLogOut = () => {
+  return async dispatch => {
+    await logOutFirebase()
+
+    dispatch(logOut(initialState))
   }
 }

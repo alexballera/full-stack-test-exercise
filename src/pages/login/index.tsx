@@ -1,6 +1,7 @@
 //** Base Imports */
+import { Metadata } from 'next'
 import Link from 'next/link'
-import { Suspense } from 'react'
+import { Suspense, useMemo } from 'react'
 
 //** Mui Imports */
 import { Google } from '@mui/icons-material'
@@ -15,10 +16,11 @@ import * as yup from 'yup'
 
 //** Store  && Services Imports */
 import AuthLayout from '@/@core/auth/layaout/AuthLayout'
-import { Auth, authSchema, userIS as defaultValues } from '@/@core/auth/model'
 import { useUserContext } from '@/@core/context/UserContext'
+import { Auth, authSchema, userIS as defaultValues } from '@/@core/models/userModel'
+import { useDispatch, useSelector } from '@/@core/store'
+import { checkingAuthentication, startGoogleSign } from '@/@core/store/auth'
 import FormLogin from '@/bundle/login/formLogin'
-import { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Fullstack Test',
@@ -30,9 +32,15 @@ const schema = yup.object().shape({
 })
 
 function LoginPage() {
-  const { state, setState } = useUserContext()
+  const { state } = useUserContext()
 
   //** Hooks */
+  const dispatch = useDispatch()
+  const {
+    AUTH: { status }
+  } = useSelector(state => state)
+
+  const isAuthenticating = useMemo(() => status === 'checking', [status])
 
   const {
     control,
@@ -44,18 +52,12 @@ function LoginPage() {
     resolver: yupResolver(schema)
   })
 
+  const handleGoogleSignIn = () => {
+    dispatch(startGoogleSign())
+  }
+
   const onSubmit = (body: Auth) => {
-    setState({
-      ...state,
-      loadingSubmit: true
-    })
-    setTimeout(() => {
-      setState({
-        ...state,
-        loadingSubmit: false
-      })
-      console.log(body)
-    }, 2000)
+    dispatch(checkingAuthentication(body))
   }
 
   return (
@@ -80,12 +82,14 @@ function LoginPage() {
                 <LoadingButton
                   fullWidth
                   size='large'
-                  type='submit'
-                  loading={state.loadingGoogle || state.loadingSubmit}
+                  type='button'
+                  loading={state.loadingGoogle}
                   color={'primary'}
                   variant={'contained'}
                   loadingPosition={'end'}
                   endIcon={<Google />}
+                  onClick={handleGoogleSignIn}
+                  disabled={isAuthenticating}
                 >
                   Google
                 </LoadingButton>
@@ -95,11 +99,12 @@ function LoginPage() {
                   fullWidth
                   size='large'
                   type='submit'
-                  loading={state.loadingGoogle || state.loadingSubmit}
+                  loading={state.loadingSubmit || status === 'checking'}
                   color={'primary'}
                   variant={'contained'}
                   loadingPosition={'end'}
                   endIcon={<LoginIcon />}
+                  disabled={isAuthenticating}
                 >
                   Login
                 </LoadingButton>

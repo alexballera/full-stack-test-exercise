@@ -7,10 +7,12 @@ import { useDispatch as useReduxDispatch, useSelector as useReduxSelector } from
 //** APIs */
 
 //** Store Slices */'
+import AUTH from './auth/authSlice'
 import USER from './userSlice'
 
 const reducer = {
-  USER
+  USER,
+  AUTH
 }
 
 const store = configureStore({

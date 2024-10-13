@@ -9,8 +9,8 @@ import { CardActions, CircularProgress, Grid2, Typography } from '@mui/material'
 
 // ** Third Party Imports
 import AuthLayout from '@/@core/auth/layaout/AuthLayout'
-import { authSchema, userIS as defaultValues, User } from '@/@core/auth/model'
 import { useUserContext } from '@/@core/context/UserContext'
+import { authSchema, userIS as defaultValues, User } from '@/@core/models/userModel'
 import FormRegister from '@/bundle/register/formRegister'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'

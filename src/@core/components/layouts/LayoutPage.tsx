@@ -6,10 +6,13 @@ type Props = {
   children: ReactNode
   title: string
   description: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  size?: any
+  backgroundColor?: string
 }
 
 const LayoutPage = (props: Props) => {
-  const { children, title, description } = props
+  const { children, title, description, size, backgroundColor } = props
 
   return (
     <>
@@ -23,9 +26,9 @@ const LayoutPage = (props: Props) => {
         direction={'column'}
         alignItems={'center'}
         justifyContent={'center'}
-        sx={{ minHeight: '100vh', p: 4, backgroundColor: 'primary.dark' }}
+        sx={{ minHeight: '100vh', p: 4, backgroundColor: backgroundColor || 'primary.dark' }}
       >
-        <Grid2 size={{ xs: 12, sm: 8, md: 4 }}>{children}</Grid2>
+        <Grid2 size={size || { xs: 12, sm: 8, md: 4 }}>{children}</Grid2>
       </Grid2>
     </>
   )

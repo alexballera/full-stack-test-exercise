@@ -1,5 +1,5 @@
 import { UserProvider } from '@/@core/context/UserContext'
-import store from '@/@core/store/store'
+import store from '@/@core/store'
 import '@/@core/styles/globals.css'
 import { AppTheme } from '@/@core/theme'
 import type { AppProps } from 'next/app'

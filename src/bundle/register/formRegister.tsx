@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import { useUserContext } from '@/@core/context/UserContext'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import {
   CardContent,
@@ -10,7 +11,6 @@ import {
   InputAdornment,
   TextField
 } from '@mui/material'
-import { useState } from 'react'
 import { Controller } from 'react-hook-form'
 
 type Props = {
@@ -18,16 +18,39 @@ type Props = {
   errors: any
 }
 
-const FormLogin = (props: Props) => {
-  const [state, setState] = useState({
-    loadingGoogle: false,
-    loadingSubmit: false,
-    showPassword: false
-  })
+const FormRegister = (props: Props) => {
   const { control, errors } = props
+  const { state, setState } = useUserContext()
   return (
     <CardContent>
       <Grid2 container spacing={2}>
+        <Grid2 size={{ xs: 12 }}>
+          <FormControl fullWidth>
+            <Controller
+              name='name'
+              control={control}
+              render={({ field: { value, onChange } }) => (
+                <TextField
+                  value={value}
+                  label='Nombre y apellido'
+                  onChange={onChange}
+                  type='name'
+                  placeholder='Escriba nombre y apellido'
+                  aria-describedby='nombre-y-apellido'
+                  disabled={state.loadingGoogle || state.loadingSubmit}
+                  color='secondary'
+                  error={Boolean(errors.name)}
+                  sx={{ color: 'primary.dark' }}
+                />
+              )}
+            />
+            {errors.name && (
+              <FormHelperText sx={{ color: 'error.main' }} id='validation-schema-name'>
+                {errors.name.message}
+              </FormHelperText>
+            )}
+          </FormControl>
+        </Grid2>
         <Grid2 size={{ xs: 12 }}>
           <FormControl fullWidth>
             <Controller
@@ -115,4 +138,4 @@ const FormLogin = (props: Props) => {
     </CardContent>
   )
 }
-export default FormLogin
+export default FormRegister

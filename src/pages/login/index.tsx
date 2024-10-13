@@ -17,7 +17,7 @@ import * as yup from 'yup'
 import AuthLayout from '@/@core/auth/layaout/AuthLayout'
 import { Auth, authSchema, userIS as defaultValues } from '@/@core/auth/model'
 import { useUserContext } from '@/@core/context/UserContext'
-import FormLogin from '@/bundle/login/components/formLogin'
+import FormLogin from '@/bundle/login/formLogin'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
